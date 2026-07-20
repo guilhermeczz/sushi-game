@@ -2,7 +2,7 @@
 .growing-pixel-belly {
   left: 0;
   right: 0;
-  top: 51%;
+  top: 62%;
   width: 22%;
   height: 14%;
   margin-inline: auto;
@@ -15,14 +15,19 @@
 }
 .growing-pixel-belly::after { display: none; }
 .growing-pixel-belly span {
+  position: absolute;
+  left: 50%;
   z-index: 2;
-  bottom: 12%;
-  color: #6f3d2d;
-  font-size: 13px;
-  line-height: 1;
-  text-shadow: 1px 1px #ffffff55;
+  bottom: 24%;
+  width: 7px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #70402f;
+  box-shadow: 1px 1px #ffffff55;
 }
 .growing-pixel-belly.belly-2 { width: 30%; height: 17%; }
-.growing-pixel-belly.belly-3 { width: 38%; height: 20%; }
-.growing-pixel-belly.belly-4 { width: 46%; height: 23%; }
-.growing-pixel-belly.belly-5 { width: 54%; height: 26%; }
+.growing-pixel-belly.belly-2 { top: 61%; }
+.growing-pixel-belly.belly-3 { top: 60%; width: 38%; height: 20%; }
+.growing-pixel-belly.belly-4 { top: 59%; width: 46%; height: 23%; }
+.growing-pixel-belly.belly-5 { top: 58%; width: 54%; height: 26%; }

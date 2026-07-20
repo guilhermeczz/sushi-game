@@ -15,7 +15,7 @@ export default function Avatar({avatar,size='large',mood='happy',eating=false,st
   return <div className={`premium-pixel-avatar ${heightClass} ${className}`} role="img" aria-label="Avatar pixel art do jogador">
     <motion.div className="premium-pixel-inner" animate={staticAvatar?{}:mood==='victory'?{y:[0,-14,0]}:{}} transition={{repeat:Infinity,duration:.7}}>
       <div className="premium-pixel-sprite" style={{backgroundImage:sheet,backgroundPosition:`${xPositions[col]} ${row?'100%':'0%'}`,left:xCorrections[col]}}/>
-      {stage>0&&<motion.div key={stage} className={`growing-pixel-belly belly-${stage}`} style={{'--belly-shirt':shirtColors[id],'--belly-skin':skinColors[id]}} initial={{scale:.65,opacity:0}} animate={{scale:[.65,1.08,1],opacity:1}} transition={{duration:.55,ease:'easeOut'}}><span>•</span></motion.div>}
+      {stage>0&&<motion.div key={stage} className={`growing-pixel-belly belly-${stage}`} style={{'--belly-shirt':shirtColors[id],'--belly-skin':skinColors[id]}} initial={{scale:.65,opacity:0}} animate={{scale:[.65,1.08,1],opacity:1}} transition={{duration:.55,ease:'easeOut'}}><span aria-hidden="true" /></motion.div>}
       {eating&&<motion.span className="pixel-eating" initial={{scale:.3}} animate={{scale:1}}>🍣</motion.span>}
       {mood==='sad'&&<span className="premium-tears">💧  💧</span>}
       {mood==='victory'&&<span className="premium-trophy">🏆</span>}
