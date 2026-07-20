@@ -1,34 +1,19 @@
-import NiceAvatar from 'react-nice-avatar'
 import { motion } from 'framer-motion'
 
-export const hairChoicesByGender={
-  boy:[{name:'Volumoso',style:'thick',color:'#2c1b18'},{name:'Moicano',style:'mohawk',color:'#1d2028'},{name:'Clássico',style:'normal',color:'#724133'}],
-  girl:[{name:'Longo',style:'womanLong',color:'#2c1b18'},{name:'Curto',style:'womanShort',color:'#724133'},{name:'Longo rosa',style:'womanLong',color:'#d76c82'}],
+export const pixelCharacters={
+  boy:[{id:0,name:'Clássico'},{id:1,name:'Street'},{id:2,name:'Sport'},{id:3,name:'Urban'}],
+  girl:[{id:4,name:'Clássica'},{id:5,name:'Sunny'},{id:6,name:'Fun'},{id:7,name:'Afro'}],
 }
-export const avatarChoices={
-  skins:[{name:'Claro',color:'#f5c6a5'},{name:'Dourado',color:'#e8a273'},{name:'Moreno',color:'#ad6848'},{name:'Escuro',color:'#70402f'}],
-  hairs:hairChoicesByGender.boy,
-  outfits:[{name:'Coral',color:'#ff5d55',style:'hoody'},{name:'Alga',color:'#42ad58',style:'short'},{name:'Oceano',color:'#3188d2',style:'polo'},{name:'Manga',color:'#ffb928',style:'hoody'}],
-}
-
+const xPositions=['0%','33.333%','66.666%','100%']
 export default function Avatar({avatar,size='large',mood='happy',eating=false,stage=0,staticAvatar=false,className=''}){
-  const skin=avatarChoices.skins[avatar?.skin??0]
-  const hairs=hairChoicesByGender[avatar?.gender==='girl'?'girl':'boy']
-  const hair=hairs[(avatar?.hair??0)%hairs.length]
-  const outfit=avatarChoices.outfits[avatar?.outfit??0]
+  const fallback=avatar?.gender==='girl'?4:0,id=avatar?.character??fallback,col=id%4,row=id>=4?1:0
   const heightClass=size==='small'?'avatar-small':size==='hero'?'avatar-hero':'avatar-large'
-  const config={
-    sex:avatar?.gender==='girl'?'woman':'man',faceColor:skin.color,hairColor:hair.color,hairStyle:hair.style,
-    shirtColor:outfit.color,shirtStyle:outfit.style,earSize:avatar?.gender==='girl'?'small':'big',
-    eyeStyle:mood==='sad'?'smile':'circle',eyeBrowStyle:mood==='sad'?'up':'up',noseStyle:avatar?.gender==='girl'?'round':'short',
-    mouthStyle:eating?'laugh':mood==='sad'?'peace':'smile',glassesStyle:'none',hatStyle:'none',bgColor:'transparent',shape:'rounded',
-  }
-  return <div className={`nice-game-avatar ${heightClass} ${className}`} role="img" aria-label={`Avatar ${config.sex==='woman'?'feminino':'masculino'} personalizado`}>
-    <motion.div className="nice-avatar-inner" animate={staticAvatar?{}:mood==='victory'?{y:[0,-16,0]}:{}} transition={{repeat:Infinity,duration:.75}}>
-      <motion.div className="nice-avatar-art" animate={{scaleX:1+stage*.06}} transition={{type:'spring',stiffness:100,damping:18}}><NiceAvatar style={{width:'100%',height:'100%'}} {...config}/></motion.div>
-      {stage>0&&<motion.div className={`nice-belly stage-${stage}`} initial={{scale:.35}} animate={{scale:1}} style={{background:outfit.color}}/>}
-      {mood==='sad'&&<><span className="nice-tear left">💧</span><span className="nice-tear right">💧</span></>}
-      {mood==='victory'&&<span className="nice-trophy">🏆</span>}
+  return <div className={`premium-pixel-avatar ${heightClass} ${className}`} role="img" aria-label="Avatar pixel art do jogador">
+    <motion.div className="premium-pixel-inner" animate={staticAvatar?{}:mood==='victory'?{y:[0,-14,0]}:{}} transition={{repeat:Infinity,duration:.7}}>
+      <motion.div className="premium-pixel-sprite" style={{backgroundPosition:`${xPositions[col]} ${row?'100%':'0%'}`}} animate={{scaleX:1+stage*.055}} transition={{type:'spring',stiffness:110,damping:18}}/>
+      {eating&&<motion.span className="pixel-eating" initial={{scale:.3}} animate={{scale:1}}>🍣</motion.span>}
+      {mood==='sad'&&<span className="premium-tears">💧  💧</span>}
+      {mood==='victory'&&<span className="premium-trophy">🏆</span>}
     </motion.div>
   </div>
 }
