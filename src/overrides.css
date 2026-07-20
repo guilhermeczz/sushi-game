@@ -2,16 +2,27 @@
 .growing-pixel-belly {
   left: 0;
   right: 0;
-  top: 55%;
-  width: 30%;
-  height: 17%;
+  top: 51%;
+  width: 22%;
+  height: 14%;
   margin-inline: auto;
   transform: none;
-  border-width: 2px;
+  overflow: visible;
+  background: var(--belly-skin);
+  border: 3px solid #2c211e;
+  border-radius: 46% 46% 50% 50%;
   box-shadow: inset 4px 3px 0 #ffffff24, inset -3px -3px 0 #0002, 3px 4px 0 #0002;
 }
-.growing-pixel-belly span { font-size: 10px; }
-.growing-pixel-belly.belly-2 { width: 38%; height: 20%; }
-.growing-pixel-belly.belly-3 { width: 46%; height: 23%; }
-.growing-pixel-belly.belly-4 { width: 54%; height: 26%; }
-.growing-pixel-belly.belly-5 { width: 62%; height: 29%; }
+.growing-pixel-belly::after { display: none; }
+.growing-pixel-belly span {
+  z-index: 2;
+  bottom: 12%;
+  color: #6f3d2d;
+  font-size: 13px;
+  line-height: 1;
+  text-shadow: 1px 1px #ffffff55;
+}
+.growing-pixel-belly.belly-2 { width: 30%; height: 17%; }
+.growing-pixel-belly.belly-3 { width: 38%; height: 20%; }
+.growing-pixel-belly.belly-4 { width: 46%; height: 23%; }
+.growing-pixel-belly.belly-5 { width: 54%; height: 26%; }
