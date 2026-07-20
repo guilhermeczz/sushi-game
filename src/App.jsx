@@ -4,10 +4,11 @@ import AvatarCreator from './components/AvatarCreator'
 import GoalScreen from './components/GoalScreen'
 import GameBoard from './components/GameBoard'
 import ResultScreen from './components/ResultScreen'
+import SideMenu from './components/SideMenu'
 
 const AVATAR_KEY = 'sushi-count-avatar'
 const GAME_KEY = 'sushi-count-game'
-const defaultAvatar = { name: '', gender: 'boy', character: 0 }
+const defaultAvatar = { name: '', gender: 'boy', skin: 0, hair: 0, outfit: 0 }
 
 function loadState() {
   try {
@@ -28,16 +29,20 @@ export default function App() {
   const [goal, setGoal] = useState(initial.goal)
   const [count, setCount] = useState(initial.count)
   const [won, setWon] = useState(initial.won)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [theme, setTheme] = useState(() => localStorage.getItem('sushi-count-theme') || 'light')
+  const [profileReturn, setProfileReturn] = useState(null)
 
   useEffect(() => {
     if (screen === 'game') localStorage.setItem(GAME_KEY, JSON.stringify({ screen, goal, count }))
   }, [screen, goal, count])
+  useEffect(() => { localStorage.setItem('sushi-count-theme', theme) }, [theme])
 
   const saveAvatar = () => {
     const clean = { ...avatar, name: avatar.name.trim() }
     setAvatar(clean)
     localStorage.setItem(AVATAR_KEY, JSON.stringify(clean))
-    setScreen('goal')
+    if (profileReturn) { setScreen(profileReturn); setProfileReturn(null) } else setScreen('goal')
   }
   const start = (nextGoal) => { setGoal(nextGoal); setCount(0); setScreen('game') }
   const finish = (victory, finalCount = count) => {
@@ -49,9 +54,12 @@ export default function App() {
     setCount(next)
   }
   const restart = () => { localStorage.removeItem(GAME_KEY); setGoal(0); setCount(0); setScreen('goal') }
+  const resetAll = () => { if (!window.confirm('Reiniciar tudo? Seu avatar e o progresso atual serão apagados.')) return; localStorage.removeItem(GAME_KEY); localStorage.removeItem(AVATAR_KEY); setAvatar(defaultAvatar); setGoal(0); setCount(0); setWon(false); setMenuOpen(false); setScreen('onboarding') }
+  const editProfile = () => { setProfileReturn(screen === 'onboarding' ? null : screen); setScreen('onboarding') }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell theme-${theme}`}>
+      <SideMenu open={menuOpen} setOpen={setMenuOpen} theme={theme} setTheme={setTheme} onEditProfile={editProfile} onReset={resetAll} />
       <AnimatePresence mode="wait">
         <motion.div key={screen} className="screen-wrap" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: .25 }}>
           {screen === 'onboarding' && <AvatarCreator avatar={avatar} setAvatar={setAvatar} onSave={saveAvatar} />}

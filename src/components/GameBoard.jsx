@@ -2,24 +2,25 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Avatar from './Avatar'
 import Sushi from './Sushi'
-import { FlyingSushi, PlusOne } from './Animations'
+import { EatingEffects } from './Animations'
 
 export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFinish }) {
-  const [bite, setBite] = useState(0)
+  const [bites, setBites] = useState([])
   const [eating, setEating] = useState(false)
   const [goalPrompt, setGoalPrompt] = useState(count === goal)
   const progress = Math.min(100, (count / goal) * 100)
-  const stage = count >= 30 ? 3 : count >= 20 ? 2 : count >= 10 ? 1 : 0
+  const stage = count >= 20 ? 3 : count >= 15 ? 2 : count >= 10 ? 1 : 0
   const remaining = Math.max(0, goal - count)
 
   useEffect(() => {
     if (!eating) return
     const timer = setTimeout(() => setEating(false), 620)
     return () => clearTimeout(timer)
-  }, [eating, bite])
+  }, [eating, bites])
 
   const eat = () => {
-    setBite((value) => value + 1)
+    const id = Date.now() + Math.random()
+    setBites((items) => [...items, id])
     setEating(true)
     onEat()
     if (count + 1 === goal) setTimeout(() => setGoalPrompt(true), 450)
@@ -36,10 +37,10 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFini
       <div className="game-stage">
         <span className="stage-badge">NÍVEL {stage + 1}</span>
         <Avatar avatar={avatar} size="large" eating={eating} stage={stage} />
-        <FlyingSushi id={bite} /><PlusOne id={bite} />
+        <EatingEffects bites={bites} onDone={(id) => setBites((items) => items.filter((item) => item !== id))} />
       </div>
       <div className="action-zone">
-        <motion.button className="sushi-button" whileTap={{ scale: .88 }} onClick={eat} aria-label="Comer uma peça de sushi"><Sushi /><span>TOQUE PARA COMER</span></motion.button>
+        <motion.button className="sushi-button realistic" whileTap={{ scale: .88, rotate: -2 }} onClick={eat} aria-label="Comer uma peça de sushi"><motion.img src="/assets/sushi-real.png" alt="Sushi de salmão" animate={{ y: [0,-7,0] }} transition={{ repeat: Infinity, duration: 2.1 }} /><span>TOQUE PARA COMER</span></motion.button>
         <button className="give-up" onClick={onGiveUp}>{count >= goal ? 'Encerrar rodízio' : 'Estou cheio'}</button>
       </div>
       {goalPrompt && (
