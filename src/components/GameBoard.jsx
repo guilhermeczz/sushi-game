@@ -9,7 +9,7 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFini
   const [eating, setEating] = useState(false)
   const [goalPrompt, setGoalPrompt] = useState(count === goal)
   const [stageUp, setStageUp] = useState(false)
-  const progress = Math.min(100, (count / goal) * 100)
+  const progress = goal > 0 ? Math.min(100, (count / goal) * 100) : 100
   const stage = count >= 60 ? 5 : count >= 50 ? 4 : count >= 40 ? 3 : count >= 30 ? 2 : count >= 20 ? 1 : 0
   const remaining = Math.max(0, goal - count)
 
