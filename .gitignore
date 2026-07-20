@@ -3,3 +3,4 @@ dist
 .vercel
 *.local
 mobile-check.png
+public/assets/*-source.png

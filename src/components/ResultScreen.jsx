@@ -12,6 +12,7 @@ export default function ResultScreen({ won, avatar, count, goal, onRestart }) {
       </motion.section>
       <div className="result-avatar"><Avatar avatar={avatar} size="hero" mood={won ? 'victory' : 'sad'} stage={count >= 30 ? 3 : count >= 20 ? 2 : count >= 10 ? 1 : 0} /></div>
       <div className="final-score"><span>PLACAR FINAL</span><strong>{count}<small> / {goal} peças</small></strong></div>
+      {won && <div className="over-goal"><span>🔥</span><div><b>+{Math.max(0, count - goal)} peças</b><small>ALÉM DA META</small></div></div>}
       <button className="primary-button yellow" onClick={onRestart}>{won ? 'Jogar novamente' : 'Tentar novamente'} <span>↻</span></button>
     </main>
   )

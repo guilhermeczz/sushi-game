@@ -4,9 +4,10 @@ import Avatar from './Avatar'
 import Sushi from './Sushi'
 import { FlyingSushi, PlusOne } from './Animations'
 
-export default function GameBoard({ avatar, goal, count, onEat, onGiveUp }) {
+export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFinish }) {
   const [bite, setBite] = useState(0)
   const [eating, setEating] = useState(false)
+  const [goalPrompt, setGoalPrompt] = useState(count === goal)
   const progress = Math.min(100, (count / goal) * 100)
   const stage = count >= 30 ? 3 : count >= 20 ? 2 : count >= 10 ? 1 : 0
   const remaining = Math.max(0, goal - count)
@@ -21,6 +22,7 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp }) {
     setBite((value) => value + 1)
     setEating(true)
     onEat()
+    if (count + 1 === goal) setTimeout(() => setGoalPrompt(true), 450)
   }
 
   return (
@@ -30,7 +32,7 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp }) {
         <div><small>Meta</small><strong>{goal}</strong></div><i /><div><small>Peças</small><strong>{count}</strong></div>
       </section>
       <div className="progress-track"><motion.div animate={{ width: `${progress}%` }} /><Sushi /></div>
-      <p className="remaining">{remaining > 0 ? <>Faltam <b>{remaining} peças</b>. Você consegue!</> : 'Meta atingida!'}</p>
+      <p className="remaining">{remaining > 0 ? <>Faltam <b>{remaining} peças</b>. Você consegue!</> : <><b>Meta superada!</b> +{count - goal} além da meta</>}</p>
       <div className="game-stage">
         <span className="stage-badge">NÍVEL {stage + 1}</span>
         <Avatar avatar={avatar} size="large" eating={eating} stage={stage} />
@@ -38,8 +40,17 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp }) {
       </div>
       <div className="action-zone">
         <motion.button className="sushi-button" whileTap={{ scale: .88 }} onClick={eat} aria-label="Comer uma peça de sushi"><Sushi /><span>TOQUE PARA COMER</span></motion.button>
-        <button className="give-up" onClick={onGiveUp}>Estou cheio</button>
+        <button className="give-up" onClick={onGiveUp}>{count >= goal ? 'Encerrar rodízio' : 'Estou cheio'}</button>
       </div>
+      {goalPrompt && (
+        <motion.div className="goal-reached-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <motion.div className="goal-reached-card" initial={{ scale: .7, y: 40 }} animate={{ scale: 1, y: 0 }} transition={{ type: 'spring' }}>
+            <span>🏆</span><small>META ATINGIDA</small><h2>Você chegou em {goal}!</h2><p>A barriga ainda tem espaço?</p>
+            <button className="keep-eating" onClick={() => setGoalPrompt(false)}>Continuar comendo 🍣</button>
+            <button className="stop-now" onClick={onFinish}>Encerrar e ver resultado</button>
+          </motion.div>
+        </motion.div>
+      )}
     </main>
   )
 }

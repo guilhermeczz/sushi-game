@@ -7,7 +7,7 @@ import ResultScreen from './components/ResultScreen'
 
 const AVATAR_KEY = 'sushi-count-avatar'
 const GAME_KEY = 'sushi-count-game'
-const defaultAvatar = { name: '', gender: 'boy', skin: 0, hair: 0, shirt: 1 }
+const defaultAvatar = { name: '', gender: 'boy', character: 0 }
 
 function loadState() {
   try {
@@ -47,7 +47,6 @@ export default function App() {
   const eat = () => {
     const next = count + 1
     setCount(next)
-    if (next >= goal) setTimeout(() => finish(true, next), 500)
   }
   const restart = () => { localStorage.removeItem(GAME_KEY); setGoal(0); setCount(0); setScreen('goal') }
 
@@ -57,7 +56,7 @@ export default function App() {
         <motion.div key={screen} className="screen-wrap" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: .25 }}>
           {screen === 'onboarding' && <AvatarCreator avatar={avatar} setAvatar={setAvatar} onSave={saveAvatar} />}
           {screen === 'goal' && <GoalScreen avatar={avatar} onStart={start} onBack={() => setScreen('onboarding')} />}
-          {screen === 'game' && <GameBoard avatar={avatar} goal={goal} count={count} onEat={eat} onGiveUp={() => finish(false)} />}
+          {screen === 'game' && <GameBoard avatar={avatar} goal={goal} count={count} onEat={eat} onGiveUp={() => finish(count >= goal)} onFinish={() => finish(true)} />}
           {screen === 'result' && <ResultScreen won={won} avatar={avatar} count={count} goal={goal} onRestart={restart} />}
         </motion.div>
       </AnimatePresence>
