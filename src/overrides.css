@@ -1,0 +1,17 @@
+/* Final gameplay overrides kept separate so legacy avatar styles cannot win cascade. */
+.growing-pixel-belly {
+  left: 0;
+  right: 0;
+  top: 55%;
+  width: 30%;
+  height: 17%;
+  margin-inline: auto;
+  transform: none;
+  border-width: 2px;
+  box-shadow: inset 4px 3px 0 #ffffff24, inset -3px -3px 0 #0002, 3px 4px 0 #0002;
+}
+.growing-pixel-belly span { font-size: 10px; }
+.growing-pixel-belly.belly-2 { width: 38%; height: 20%; }
+.growing-pixel-belly.belly-3 { width: 46%; height: 23%; }
+.growing-pixel-belly.belly-4 { width: 54%; height: 26%; }
+.growing-pixel-belly.belly-5 { width: 62%; height: 29%; }
