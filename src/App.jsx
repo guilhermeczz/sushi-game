@@ -14,7 +14,8 @@ function loadState() {
   try {
     const avatar = JSON.parse(localStorage.getItem(AVATAR_KEY)) || defaultAvatar
     const saved = JSON.parse(localStorage.getItem(GAME_KEY))
-    if (saved?.screen === 'game') return { avatar, ...saved }
+    if (saved?.screen === 'game' && Number.isInteger(saved.goal) && saved.goal >= 5 && saved.goal <= 200 && saved.count >= 0) return { avatar, ...saved }
+    if (saved?.screen === 'game') localStorage.removeItem(GAME_KEY)
     if (saved?.screen === 'result') localStorage.removeItem(GAME_KEY)
     return { avatar, screen: 'onboarding', goal: 0, count: 0, won: false }
   } catch {
@@ -44,7 +45,7 @@ export default function App() {
     localStorage.setItem(AVATAR_KEY, JSON.stringify(clean))
     if (profileReturn) { setScreen(profileReturn); setProfileReturn(null) } else setScreen('goal')
   }
-  const start = (nextGoal) => { setGoal(nextGoal); setCount(0); setScreen('game') }
+  const start = (nextGoal) => { const safeGoal=Math.min(200,Math.max(5,Math.round(Number(nextGoal)/5)*5)); setGoal(safeGoal); setCount(0); setScreen('game') }
   const finish = (victory, finalCount = count) => {
     setWon(victory); setCount(finalCount); setScreen('result')
     localStorage.setItem(GAME_KEY, JSON.stringify({ screen: 'result', goal, count: finalCount, won: victory }))
