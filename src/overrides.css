@@ -1,14 +1,14 @@
-/* Final gameplay overrides kept separate so legacy avatar styles cannot win cascade. */
+/* Belly evolution stays separate so legacy avatar styles cannot win cascade. */
 .growing-pixel-belly {
   left: 0;
   right: 0;
-  top: 62%;
-  width: 22%;
-  height: 14%;
+  top: 60%;
+  width: 28%;
+  height: 16%;
   margin-inline: auto;
   transform: none;
   overflow: visible;
-  background: var(--belly-skin);
+  background: var(--belly-shirt);
   border: 3px solid #2c211e;
   border-radius: 46% 46% 50% 50%;
   box-shadow: inset 4px 3px 0 #ffffff24, inset -3px -3px 0 #0002, 3px 4px 0 #0002;
@@ -18,7 +18,8 @@
   position: absolute;
   left: 50%;
   z-index: 2;
-  bottom: 24%;
+  bottom: -3%;
+  display: none;
   width: 7px;
   height: 4px;
   transform: translateX(-50%);
@@ -26,8 +27,29 @@
   background: #70402f;
   box-shadow: 1px 1px #ffffff55;
 }
-.growing-pixel-belly.belly-2 { width: 30%; height: 17%; }
-.growing-pixel-belly.belly-2 { top: 61%; }
-.growing-pixel-belly.belly-3 { top: 60%; width: 38%; height: 20%; }
-.growing-pixel-belly.belly-4 { top: 59%; width: 46%; height: 23%; }
-.growing-pixel-belly.belly-5 { top: 58%; width: 54%; height: 26%; }
+.growing-pixel-belly.belly-2 { top: 59%; width: 36%; height: 19%; }
+.growing-pixel-belly.belly-3 { top: 58%; width: 44%; height: 22%; }
+.growing-pixel-belly.belly-4 { top: 57%; width: 52%; height: 25%; }
+.growing-pixel-belly.belly-5 { top: 56%; width: 60%; height: 28%; }
+.growing-pixel-belly.belly-3::after,
+.growing-pixel-belly.belly-4::after,
+.growing-pixel-belly.belly-5::after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -4%;
+  width: 40%;
+  height: 30%;
+  transform: translateX(-50%);
+  border: 2px solid #2c211e;
+  border-radius: 50%;
+  background: var(--belly-skin);
+  box-shadow: inset 3px 2px 0 #ffffff30;
+}
+.growing-pixel-belly.belly-4::after { width: 52%; height: 38%; bottom: -8%; }
+.growing-pixel-belly.belly-5::after { width: 64%; height: 47%; bottom: -12%; }
+.growing-pixel-belly.belly-3 span,
+.growing-pixel-belly.belly-4 span,
+.growing-pixel-belly.belly-5 span { display: block; }
