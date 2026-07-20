@@ -32,10 +32,10 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFini
     <main className="screen gameplay">
       <header className="game-header"><div><small>Jogador</small><b>{avatar.name}</b></div><span className="live-dot">AO VIVO</span></header>
       <section className="score-panel">
-        <div><small>Meta</small><strong>{goal}</strong></div><i /><div><small>Peças</small><strong>{count}</strong></div>
+        <div><small>Meta</small><strong>{goal}</strong></div><i /><div><small>Pontos</small><strong>{count}</strong></div>
       </section>
       <div className="progress-track"><motion.div animate={{ width: `${progress}%` }} /><Sushi /></div>
-      <p className="remaining">{remaining > 0 ? <>Faltam <b>{remaining} peças</b>. Você consegue!</> : <><b>Meta superada!</b> +{count - goal} além da meta</>}</p>
+      <p className="remaining">{remaining > 0 ? <>Faltam <b>{remaining} pontos</b>. Você consegue!</> : <><b>Meta superada!</b> +{count - goal} além da meta</>}</p>
       <div className="game-stage">
         <span className="stage-badge">NÍVEL {stage + 1}</span>
         <Avatar avatar={avatar} size="large" eating={eating} stage={stage} />
