@@ -8,7 +8,7 @@ import SideMenu from './components/SideMenu'
 
 const AVATAR_KEY = 'sushi-count-avatar'
 const GAME_KEY = 'sushi-count-game'
-const defaultAvatar = { name: '', gender: 'boy', character: 0 }
+const defaultAvatar = { name: '', gender: 'boy', character: 8 }
 
 function loadState() {
   try {
