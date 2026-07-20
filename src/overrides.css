@@ -1,55 +1,17 @@
-/* Belly evolution stays separate so legacy avatar styles cannot win cascade. */
-.growing-pixel-belly {
-  left: 0;
-  right: 0;
-  top: 60%;
-  width: 28%;
-  height: 16%;
-  margin-inline: auto;
-  transform: none;
-  overflow: visible;
-  background: var(--belly-shirt);
-  border: 3px solid #2c211e;
-  border-radius: 46% 46% 50% 50%;
-  box-shadow: inset 4px 3px 0 #ffffff24, inset -3px -3px 0 #0002, 3px 4px 0 #0002;
-}
-.growing-pixel-belly::after { display: none; }
-.growing-pixel-belly span {
-  position: absolute;
-  left: 50%;
-  z-index: 2;
-  bottom: -3%;
-  display: none;
-  width: 7px;
-  height: 4px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: #70402f;
-  box-shadow: 1px 1px #ffffff55;
-}
-.growing-pixel-belly.belly-2 { top: 59%; width: 36%; height: 19%; }
-.growing-pixel-belly.belly-3 { top: 58%; width: 44%; height: 22%; }
-.growing-pixel-belly.belly-4 { top: 57%; width: 52%; height: 25%; }
-.growing-pixel-belly.belly-5 { top: 56%; width: 60%; height: 28%; }
-.growing-pixel-belly.belly-3::after,
-.growing-pixel-belly.belly-4::after,
-.growing-pixel-belly.belly-5::after {
-  content: '';
-  display: block;
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: -4%;
-  width: 40%;
-  height: 30%;
-  transform: translateX(-50%);
-  border: 2px solid #2c211e;
-  border-radius: 50%;
-  background: var(--belly-skin);
-  box-shadow: inset 3px 2px 0 #ffffff30;
-}
-.growing-pixel-belly.belly-4::after { width: 52%; height: 38%; bottom: -8%; }
-.growing-pixel-belly.belly-5::after { width: 64%; height: 47%; bottom: -12%; }
-.growing-pixel-belly.belly-3 span,
-.growing-pixel-belly.belly-4 span,
-.growing-pixel-belly.belly-5 span { display: block; }
+/* Level progression: accessories and plates keep the original avatar visible. */
+.rank-accessory{position:absolute;z-index:7;left:50%;top:27%;width:45%;height:7%;translate:-50% 0;border:3px solid #2c211e;border-radius:5px 2px 4px 5px;background:linear-gradient(#fffdf4 0 38%,#e6dfcf 40%);box-shadow:inset 0 -3px #0001,3px 3px 0 #0002}
+.rank-accessory::before{content:'';position:absolute;z-index:2;right:-10px;top:50%;width:13px;height:13px;translate:0 -50%;border:3px solid #2c211e;border-radius:50%;background:inherit}
+.rank-accessory::after{content:'';position:absolute;z-index:1;right:-17px;top:54%;width:20px;height:29px;border:3px solid #2c211e;background:inherit;clip-path:polygon(25% 0,100% 10%,73% 48%,96% 100%,44% 79%,0 100%,20% 43%)}
+.rank-accessory i{position:absolute;z-index:3;inset:0;display:grid;place-items:center;color:#fff4c0;font-size:13px;font-style:normal;line-height:1;text-shadow:1px 1px #8e561d}
+.rank-accessory.rank-2,.rank-accessory.rank-3{background:linear-gradient(#f45e52 0 38%,#c9322e 40%)}.rank-accessory.rank-4{background:linear-gradient(#ffe267 0 38%,#e9a923 40%)}
+.rank-accessory.rank-5{top:-2%;width:51%;height:25%;border:0;border-radius:0;background:linear-gradient(135deg,#ffe66a,#ffad24 72%);clip-path:polygon(0 100%,7% 27%,30% 62%,50% 0,70% 62%,93% 27%,100% 100%);filter:drop-shadow(0 4px 0 #7e4d28) drop-shadow(3px 2px 0 #7e4d28);box-shadow:none}
+.rank-accessory.rank-5::before,.rank-accessory.rank-5::after{display:none}.rank-accessory.rank-5 i{top:46%;font-size:14px;color:#fff8bc}
+.plate-stack{position:absolute;z-index:8;right:-4%;bottom:2%;width:48px;height:65px;pointer-events:none}
+.plate-stack.mood-victory{right:auto;left:-4%}
+.plate-stack i{position:absolute;left:0;width:47px;height:13px;border:3px solid #32241f;border-radius:50%;background:linear-gradient(#fff 35%,#e6e9e9 38% 64%,#58b8d6 66%);box-shadow:2px 3px 0 #0002}
+.plate-stack i:nth-child(1){bottom:0}.plate-stack i:nth-child(2){bottom:9px}.plate-stack i:nth-child(3){bottom:18px}.plate-stack i:nth-child(4){bottom:27px}.plate-stack i:nth-child(5){bottom:36px}
+
+html,body,#root{height:100%;min-height:100%}.screen-wrap{height:100dvh;min-height:100svh}.screen{height:100%;min-height:100%}.onboarding,.goal-screen,.result{overflow-y:auto;overscroll-behavior:contain}.gameplay{overflow:hidden}
+@media(max-width:380px){.screen{padding-left:14px;padding-right:14px}.brand>span{width:39px;height:39px}.intro{margin-top:10px}.intro h1{font-size:24px}.creator-card{padding:12px;border-radius:19px;gap:8px}.pixel-character-picker{grid-template-columns:67px 1fr 25px}.goal-card{padding-left:15px;padding-right:15px}.goal-presets{gap:5px}.gameplay{padding-left:13px;padding-right:13px}.score-panel{min-height:70px}.score-panel strong{font-size:25px}.stage-badge{left:0}.sushi-button.realistic{width:180px}.result h1{font-size:40px}.final-score{padding-inline:5px}}
+@media(max-height:740px){.gameplay{padding-top:max(9px,env(safe-area-inset-top));padding-bottom:max(9px,env(safe-area-inset-bottom))}.score-panel{margin-top:8px;min-height:66px}.progress-track{margin-top:9px}.remaining{margin-top:6px}.game-stage{min-height:175px}.game-stage .avatar-large{width:145px;height:194px}.sushi-button.realistic{width:164px;height:94px}.give-up{height:43px;margin-top:0}.goal-card{padding-top:15px;padding-bottom:15px}.goal-card h1{margin-bottom:10px}.goal-card>p{margin:10px 0}}
+@media(max-height:620px){.game-header small{display:none}.score-panel{min-height:54px}.score-panel strong{font-size:22px}.score-panel i{height:30px}.remaining{margin-block:4px;font-size:10px}.game-stage{min-height:136px}.game-stage .avatar-large{width:112px;height:150px}.sushi-button.realistic{width:140px;height:75px}.sushi-button span{bottom:-2px}.give-up{height:39px}.stage-badge{top:3px}.plate-stack{transform:scale(.8);transform-origin:bottom right}}

@@ -40,7 +40,7 @@ export default function GameBoard({ avatar, goal, count, onEat, onGiveUp, onFini
         <span className="stage-badge">NÍVEL {stage + 1}</span>
         <Avatar avatar={avatar} size="large" eating={eating} stage={stage} />
         <EatingEffects bites={bites} onDone={(id) => setBites((items) => items.filter((item) => item !== id))} />
-        {stageUp&&<motion.div className="stage-celebration" initial={{scale:.4,opacity:0}} animate={{scale:1,opacity:1}} exit={{opacity:0}}><span>✨</span><b>NÍVEL {stage+1}</b><small>Barriga evoluiu!</small></motion.div>}
+        {stageUp&&<motion.div className="stage-celebration" initial={{scale:.4,opacity:0}} animate={{scale:1,opacity:1}} exit={{opacity:0}}><span>✨</span><b>NÍVEL {stage+1}</b><small>Novo visual desbloqueado!</small></motion.div>}
       </div>
       <div className="action-zone">
         <motion.button className="sushi-button realistic" whileTap={{ scale: .88, rotate: -2 }} onClick={eat} aria-label="Comer uma peça de sushi"><motion.img src="/assets/sushi-real.png" alt="Sushi de salmão" animate={{ y: [0,-7,0] }} transition={{ repeat: Infinity, duration: 2.1 }} /><span>TOQUE PARA COMER</span></motion.button>
