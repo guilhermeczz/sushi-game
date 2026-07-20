@@ -4,3 +4,4 @@ dist
 *.local
 mobile-check.png
 public/assets/*-source.png
+public/assets/*-edited.png
